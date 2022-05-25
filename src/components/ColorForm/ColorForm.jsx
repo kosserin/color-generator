@@ -81,15 +81,16 @@ const ColorForm = (props) => {
   const hexSubmitHandler = e => {
     e.preventDefault();
     const hexValue = hexRef.current.value;
-    if(hexValue.length !== 6) {
-      setError(true)
-    }
     let isnum = /^#[0-9]{6}$/i.test(hexValue);
     if(isnum) {
-      const {r, g, b} = hexToRgb(hexValue);
-      const hslValue = rgbToHsl(r,g,b);
-      const { hsl,lightness } = hslValue;
-      props.submitHsl(hsl, lightness);
+      if(hexValue.length !== 6) {
+        setError(true)
+      } else {
+        const {r, g, b} = hexToRgb(hexValue);
+        const hslValue = rgbToHsl(r,g,b);
+        const { hsl,lightness } = hslValue;
+        props.submitHsl(hsl, lightness);
+      }
     } else {
       setError(true)
     }

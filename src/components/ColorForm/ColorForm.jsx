@@ -83,7 +83,7 @@ const ColorForm = (props) => {
     const hexValue = hexRef.current.value;
     let isnum = /^#[0-9]{6}$/i.test(hexValue);
     if(isnum) {
-      if(hexValue.length !== 6) {
+      if(hexValue.length !== 7) {
         setError(true)
       } else {
         const {r, g, b} = hexToRgb(hexValue);

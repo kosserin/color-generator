@@ -5,35 +5,38 @@ import styles from './ColorList.module.css';
 const ColorList = (props) => {
 
   let content;
-  if(props.hexValue !== null) {
+
+  if(props.hslValue !== null) {
     let addedItems = [];
-    let i = 100;
-    while(i >= 0) {
-      if(i == 100) {
-        addedItems.push({
-          hexValue: props.hexValue,
-          opacity: i,
-        })
-      } else if(i == 0) {
-        addedItems.push({
-          hexValue: props.hexValue + "00",
-          opacity: "00",
-        })
-      } else {
-        addedItems.push({
-          hexValue: props.hexValue + i,
-          opacity: i,
-        })
-      }
-      i = i - 10;
+    let max = 100;
+    let actualMaxStep = Math.floor((max - props.lightness)/10);
+    let actualMinStep = Math.floor((props.lightness)/10);
+    let lastOccurance = props.hslValue.lastIndexOf(props.lightness);
+    
+    let i = 0;
+    while (i < (props.lightness-actualMinStep)) {
+      const newHsl = props.hslValue.substring(0, lastOccurance) + `${i}%)`;
+      addedItems.push({
+        backgroundColor: newHsl, 
+      })
+      i = i + actualMinStep;
+    }
+
+    i = props.lightness;
+    while(i <= max) {
+      const newHsl = props.hslValue.substring(0, lastOccurance) + `${i}%)`;
+      addedItems.push({
+        backgroundColor: newHsl,
+        lightness: i,
+      })
+      i = i + actualMaxStep;
     }
     content = addedItems.map((item, index) => {
-      return <li className={styles['color-item']} style={{backgroundColor: item.hexValue}} key = {`color-item__${index}`}>
-        <h3>{item.opacity}</h3>
-        <h2>{item.hexValue}</h2>
+      return <li key={`color-item__${index}`} style={{backgroundColor: item.backgroundColor}} className={styles['color-item']}>
+        <h3 style={{color: item.lightness > props.lightness && "black"}}>{item.backgroundColor}</h3>
       </li>
     })
-    }
+  }
 
   return (
     <ul className={styles['color-list']}>

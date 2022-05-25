@@ -4,16 +4,18 @@ import ColorForm from './components/ColorForm/ColorForm';
 
 const App = () => {
 
-  const [hexValue, setHexValue] = useState(null);
+  const [hslValue, setHslValue] = useState(null);
+  const [lightness, setLightness] = useState(null);
 
-  const onSubmitHexHandler = (value) => {
-    setHexValue(value);
+  const onSubmitHslHandler = (hslValue, lightnessValue) => {
+    setHslValue(hslValue);
+    setLightness(lightnessValue);
   }
 
   return (
     <React.Fragment>
-      <ColorForm submitHex={onSubmitHexHandler} />
-      <ColorList hexValue={hexValue} />
+      <ColorForm submitHsl={onSubmitHslHandler} />
+      <ColorList hslValue={hslValue} lightness={lightness} />
     </React.Fragment>
   )
 }

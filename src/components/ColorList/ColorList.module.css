@@ -5,10 +5,11 @@
 }
 
 .color-item {
-    color: #000;
+    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
     padding: 6rem 1rem 1rem 1rem;
+    border: 1px solid black;
 }
